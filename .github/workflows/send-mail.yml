@@ -1,0 +1,30 @@
+name: Send mail
+
+on: push
+
+jobs:
+  mail:
+    runs-on: ubuntu-latest
+
+    steps: 
+    - name: Print hello world
+      run: echo "Hello World"
+
+    - name: Sendin an email
+      if: ${{ always() }}
+        uses: devellany/send-mailer@v1.0.2
+        with:
+          host: smtp.gmail.com
+          # Optional port (defaults to 465)
+          port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          sender: surenkumar
+          from: ${{ secrets.EMAIL_USERNAME }}
+          to: sudhakarbarani7@gmail.com
+          subject: github-actions.
+          body: hey dood finaly working
+          # Optional content type (defaults to text/plain)
+          contentType: text/plain
+          # Optional attachment files (JSON type. require property 'path')
+          attachments: '[{"path":"README.md"}]'
